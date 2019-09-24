@@ -9,7 +9,7 @@
 
 #include "lcd.h"
 #include "keypad.h"
-
+#include "scheduler.h"
 
 
 int main(void)

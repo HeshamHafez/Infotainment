@@ -18,7 +18,7 @@ static uint8 g_row;
 static uint8 g_return;
 uint8 ProgramSteps=0;
 uint8 Score=0;
-static uint8 Answers[]={YES,NO,YES,NO,NO};
+static uint8 Answers[]={YES,NO,NO,YES,YES};
 /************************************************
  * 				Functions Definition
  ************************************************/
@@ -56,7 +56,7 @@ void KeyPad_Init(void)
 uint8 KeyPad_getPressedKey(void)
 {
 static uint8 once=0;
-if(once==1)
+if(once<20)
 {
 	once++;
 	return 0;
@@ -72,7 +72,7 @@ if(once==1)
 			if(GET_BIT(KEYPAD_PORT_IN,row) == 0)
 			{
 				g_row = row;
-				SOS_CreateTask(PRIORITY_2,5,ButtonTask);
+				SOS_CreateTask(PRIORITY_2,4,ButtonTask);
 #if(N_COL ==3)
 #if(N_ROW == 3)
 				return KeyPad_3x3_switch(row-START_ROW,col);

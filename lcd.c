@@ -169,16 +169,42 @@ void LCD_clearScreen(void)
 
 void LCD_Task(void)
 {
-	uint8 Question[][16] ={"12","45","78","25","74"};
+	uint8 Question[][16] ={"Do you love H?","Is 1457 prime?","egg > chicken?","egg < chicken?","Is hamada yel3ab?"};
 	static uint8 once=0;
-	if(once==0)
+	if(once<5)
 	{
-		LCD_displayStringRowColumn(1,10,"Start");
+		LCD_displayStringRowColumn(0,4,"Welcome");
+		once++;
+	}
+	else if (once<10)
+	{
+		LCD_displayStringRowColumn(1,1,"Are you ready?");
+		once++;
+	}
+	else if(once==10)
+	{
+		LCD_clearScreen();
+		once++;
+	}
+	else if(once<15)
+	{
+		LCD_displayStringRowColumn(0,1,"Press 1 to yes");
+		LCD_displayStringRowColumn(1,1,"Press 3 to no");
+		once++;
+	}
+	else if(once==15)
+	{
+		LCD_clearScreen();
+		once++;
+	}
+	else if(once<20)
+	{
+		LCD_displayStringRowColumn(0,5,"Start");
 		once++;
 	}
 	else
 	{
-		if(once==1)
+		if(once==20)
 		{
 			LCD_clearScreen();
 			LCD_displayString(Question[ProgramSteps]);
@@ -198,7 +224,9 @@ void LCD_Task(void)
 			if(ProgramSteps == 5)
 			{
 				LCD_clearScreen();
+				LCD_displayStringRowColumn(0,0,"Your Score Is: ");
 				LCD_displayCharacter(Score+48);
+				LCD_displayStringRowColumn(1,1,"Congratulations");
 				ProgramSteps=0;
 			}
 			OldProgramSteps=ProgramSteps;
