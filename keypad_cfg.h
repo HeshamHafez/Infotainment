@@ -18,13 +18,6 @@
 #define YES 1
 #define NO 3
 
-
-//#define KEYPAD_MODE1 4*4
-//#define KEYPAD_MODE2 4*3
-//#define KEYPAD_MODE3 3*3
-//
-//#define KEYPAD_MODES KEYPAD_MODE3
-
 #define KEYPAD_PORT_OUT DIO_PORTC
 #define KEYPAD_PORT_IN 	DIO_PINC
 #define KEYPAD_PORT_DIR DIO_DDRC

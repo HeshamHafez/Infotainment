@@ -30,52 +30,51 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Info.lss \
+Infotainment.lss \
 
 FLASH_IMAGE += \
-Info.hex \
+Infotainment.hex \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Info.elf secondary-outputs
+all: Infotainment.elf secondary-outputs
 
 # Tool invocations
-Info.elf: $(OBJS) $(USER_OBJS)
+Infotainment.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Info.map -mmcu=atmega32 -o "Info.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,Infotainment.map -mmcu=atmega32 -o "Infotainment.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Info.lss: Info.elf
+Infotainment.lss: Infotainment.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Info.elf  >"Info.lss"
+	-avr-objdump -h -S Infotainment.elf  >"Infotainment.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Info.hex: Info.elf
+Infotainment.hex: Infotainment.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Info.elf  "Info.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Infotainment.elf  "Infotainment.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Info.elf
+sizedummy: Infotainment.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 Info.elf
+	-avr-size --format=avr --mcu=atmega32 Infotainment.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Info.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Infotainment.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)
 
 .PHONY: all clean dependents
-.SECONDARY:
 
 -include ../makefile.targets
